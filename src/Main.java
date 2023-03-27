@@ -25,38 +25,46 @@ public class Main {
 
 
         Scanner scanner = new Scanner(System.in);
+        UtilityClass utilityClass = new UtilityClass();
 
         while (true) {
-            System.out.println("Выберите пункт меню");
-            printMenu();
-            if (scanner.hasNext()){
-                int menu = scanner.nextInt();
-                switch(menu){
-                case 1 -> mod.addTask(monday);
-                case 2 -> mod.getTaskList();
-                case 3-> mod.deleteTask(scanner.nextInt());
-                }
-                scanner.close();
-            }else{
-                scanner.next();
-                System.out.println("Выберите пункт меню из списка!");
-            }
-scanner.close();
+            System.out.println("1. Добавить задача");
+            System.out.println("2. Получить задачу на день");
+            System.out.println("3. Удалить по ID");
+            System.out.println("4. Выход");
+            System.out.print("Выберите пунт из меню ");
+            int choice = scanner.nextInt();
 
+            switch (choice) {
+                case 1:
+                    System.out.println("Напишите название задачи: ");
+                        scanner.nextLine();
+                    String header = scanner.nextLine();
+                    System.out.println("Напишите описание задачи: ");
+                    String descriptions = scanner.nextLine();
+                    System.out.println("Выберите тип(PERSONAL, PROFESSIONAL:");
+                    Type s = Type.valueOf(scanner.nextLine());
+
+                    System.out.println("Выберите повторяемость(ONE_TAME_TASK ):");
+                    Enum e =  Task.taskRepeatability.valueOf(scanner.nextLine());
+                    utilityClass.addTask1(header,descriptions,s, (Task.taskRepeatability) e);
+                    System.out.println("Задача создана");
+                case 2:
+                    System.out.println("На сегодняшний день ваши задачи: ");
+                    utilityClass.dateTask();
+                case 3:
+                    scanner.nextLine();
+                    System.out.println("Введите номер задачи: ");
+                    utilityClass.deleteTask(scanner.nextInt());
+                case 4: System.exit(0);
+                break;
+                default:
+                    System.out.println("Введите пункт из списка");
+            }
         }
+
     }
-        private static void printMenu () {
-            System.out.println("""
-                    1. Добавить задачу
-                    2. Получить задачи на указанный день
-                    3. Удалить задачу
-                    4. Получить задачи на указанный день
-                    5. Получить архивные задачи
-                    6. Получить сгруппированные по датам задачи
-                    7.  Редактировать задачу
-                    0. Выход"""
-            );
-        }
+
 
 
 }
