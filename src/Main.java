@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -13,15 +12,17 @@ public class Main {
         System.out.println(monday);
         System.out.println(tuesday);
         System.out.println(wednesday);
-        System.out.println(monday.getTimeTask());
         UtilityClass mod = new UtilityClass();
         mod.addTask(monday);
         mod.addTask(wednesday);
         System.out.println(mod);
         tuesday.deadLineTask();
-        mod.dateTask();
-        mod.deleteTask(1);
-        System.out.println(mod);
+
+     mod.getDateTask1();
+
+
+
+
 
 
         Scanner scanner = new Scanner(System.in);
@@ -36,30 +37,35 @@ public class Main {
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1 -> {
                     System.out.println("Напишите название задачи: ");
-                        scanner.nextLine();
+                    scanner.nextLine();
                     String header = scanner.nextLine();
                     System.out.println("Напишите описание задачи: ");
                     String descriptions = scanner.nextLine();
                     System.out.println("Выберите тип(PERSONAL, PROFESSIONAL:");
                     Type s = Type.valueOf(scanner.nextLine());
-
-                    System.out.println("Выберите повторяемость(ONE_TAME_TASK ):");
-                    Enum e =  Task.taskRepeatability.valueOf(scanner.nextLine());
-                    utilityClass.addTask1(header,descriptions,s, (Task.taskRepeatability) e);
-                    System.out.println("Задача создана");
-                case 2:
+                    System.out.println("Выберите повторяемость(ONE_TAME_TASK, DAILY_TASK, MONTH_TASK, WEEKLY_TASK, YEARLY_TASK ):");
+                    Enum e = Task.taskRepeatability.valueOf(scanner.nextLine());
+                    try {
+                        utilityClass.addTask1(header, descriptions, s, (Task.taskRepeatability) e);
+                        System.out.println("Задача создана");
+                    } catch (IncorrectArgumentTaskException q) {
+                       throw new IncorrectArgumentTaskException("введите данные");
+                    }
+                }
+                case 2 -> {
                     System.out.println("На сегодняшний день ваши задачи: ");
-                    utilityClass.dateTask();
-                case 3:
+                    utilityClass.getDateTask();
+                }
+                case 3 -> {
                     scanner.nextLine();
                     System.out.println("Введите номер задачи: ");
                     utilityClass.deleteTask(scanner.nextInt());
-                case 4: System.exit(0);
-                break;
-                default:
-                    System.out.println("Введите пункт из списка");
+                    System.out.println("Задача удалена");
+                }
+                case 4 -> System.exit(0);
+                default -> System.out.println("Введите пункт из списка");
             }
         }
 

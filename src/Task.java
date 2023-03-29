@@ -114,7 +114,7 @@ public class Task {
         return id;
     }
 
-    public static Date getTimeTask() {
+    public  Date getTimeTask() {
         return timeTask.getTime();
     }
 }

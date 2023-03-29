@@ -1,29 +1,37 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UtilityClass {
     private final Map<Integer, Task> taskMap;
 
 
     public UtilityClass() {
+        List<Task> archiv = new ArrayList<>();
         taskMap = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
     }
 
-public void addTask1(String header, String descriptions, Type type, Task.taskRepeatability repeatability) throws IncorrectArgumentTaskException {
+    public void addTask1(String header, String descriptions, Type type, Task.taskRepeatability repeatability) throws IncorrectArgumentTaskException {
 
-        Task task = new Task( header, descriptions, type, repeatability);
-        taskMap.put(task.getId(), task);
+        Task task = new Task(header, descriptions, type, repeatability);
+        try {
+            taskMap.put(task.getId(), task);
+        } catch (EnumConstantNotPresentException e) {
+            throw new IncorrectArgumentTaskException("некорректно введены данные");
+        }
 
-
-}
+    }
 
     public void addTask(Task task) throws IncorrectArgumentTaskException {
 
-        try { if(task != null){
+        try {
+            if (task != null) {
 
-            taskMap.put(task.getId(), task);}
-        }
-        catch (RuntimeException e) {
+                taskMap.put(task.getId(), task);
+            }
+        } catch (RuntimeException e) {
             throw new IncorrectArgumentTaskException("Ноль вводить нельзя");
         } finally {
             System.out.println("Создали");
@@ -45,41 +53,54 @@ public void addTask1(String header, String descriptions, Type type, Task.taskRep
     }
 
 
-    public void dateTask() {
-        Map<Integer,Task> integerTaskMap = new HashMap<>();
+    public void getDateTask() {
+        Map<Integer, Task> integerTaskMap = new HashMap<>();
         integerTaskMap.entrySet().stream()
                 .map(Map.Entry::getValue)
-                .filter(integerTaskEntry -> test())
+                .filter(integerTaskEntry -> test()).toList()
                 .forEach(System.out::println);
 
     }
-    public void deleteTask(int getKey) {
-        Map<Integer, String> integerStringMap = new HashMap<>();
-        integerStringMap.remove(getKey);
-//       integerStringMap = integerStringMap.entrySet().stream()
-//                .map(Map.Entry::getKey)
-//                .filter(t-> t.)
 
-    }
-
-    private static boolean test() {
-        Calendar timeToday = Calendar.getInstance();
-        Date r =  Task.getTimeTask();
-        return r.equals(timeToday.getTime());
-    }
-
-    @Override
-    public String toString() {
-        return "Список задач" + getTaskList() ;
-    }
-
-    public Map<Integer,Task> getTaskList() {
-        return taskMap;
-    }
-    public  void checkType(Type type) throws IncorrectArgumentTaskException {
-        if(type == null){
-            throw new IncorrectArgumentTaskException("Выберите из списка");
+    public void getDateTask1() {
+        Calendar now = Calendar.getInstance();
+        Task task = new Task();
+        System.out.println("Задачи на сегодня");
+        for (Integer task1 : this.taskMap.keySet()) {
+            if(task.getTimeTask().equals(now.getTime())){
+            System.out.println(task1);
         }
     }
+        }
+        public void deleteTask ( int getKey){
+            Map<Integer, Task> integerStringMap = new HashMap<Integer, Task>();
+            integerStringMap.remove(getKey);
+//            integerStringMap.entrySet().stream()
+//                    .map(Map.Entry::getValue)
+//                    .collect(Collectors.toList())
+//                    .forEach(System.out::println);
 
-}
+        }
+
+        private static boolean test () {
+            Calendar timeToday = Calendar.getInstance();
+            Task task = new Task();
+            Date r = task.getTimeTask();
+            return r.equals(timeToday.getTime());
+        }
+
+        @Override
+        public String toString () {
+            return "Список задач" + getTaskList();
+        }
+
+        public Map<Integer, Task> getTaskList () {
+            return taskMap;
+        }
+        public void checkType (Type type) throws IncorrectArgumentTaskException {
+            if (type == null) {
+                throw new IncorrectArgumentTaskException("Выберите из списка");
+            }
+        }
+
+    }
