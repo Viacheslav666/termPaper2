@@ -72,15 +72,26 @@ public class UtilityClass {
         }
     }
         }
-        public void deleteTask ( int getKey){
-            Map<Integer, Task> integerStringMap = new HashMap<Integer, Task>();
-            integerStringMap.remove(getKey);
+        public void deleteTask ()  {
+        Scanner scanner = new Scanner(System.in);
+            System.out.println("Введите номер задачи для удаления");
+            int id = scanner.nextInt();
+            Task removedTask = taskMap.remove(id);
+            if (removedTask != null) {
+                System.out.println("Задача с "+ id + " удалена");
+            }else {
+                System.out.println("Задача не найдена");
+            }
+
+
+
+            }
 //            integerStringMap.entrySet().stream()
 //                    .map(Map.Entry::getValue)
 //                    .collect(Collectors.toList())
 //                    .forEach(System.out::println);
 
-        }
+
 
         private static boolean test () {
             Calendar timeToday = Calendar.getInstance();

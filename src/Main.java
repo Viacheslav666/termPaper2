@@ -4,7 +4,7 @@ import static java.lang.Thread.sleep;
 
 
 public class Main {
-    public static void main(String[] args) throws IncorrectArgumentTaskException {
+    public static void main(String[] args) throws IncorrectArgumentTaskException{
 
         Task monday = new Task("lover", "Popsa", Type.PERSONAL, Task.taskRepeatability.DAILY_TASK);
         Task tuesday = new Task("Kotler", "Marketing", Type.PROFESSIONAL, Task.taskRepeatability.YEARLY_TASK);
@@ -15,14 +15,7 @@ public class Main {
         UtilityClass mod = new UtilityClass();
         mod.addTask(monday);
         mod.addTask(wednesday);
-        System.out.println(mod);
-        tuesday.deadLineTask();
-
-     mod.getDateTask1();
-
-
-
-
+        mod.addTask(tuesday);
 
 
         Scanner scanner = new Scanner(System.in);
@@ -60,8 +53,7 @@ public class Main {
                 }
                 case 3 -> {
                     scanner.nextLine();
-                    System.out.println("Введите номер задачи: ");
-                    utilityClass.deleteTask(scanner.nextInt());
+                        utilityClass.deleteTask();
                     System.out.println("Задача удалена");
                 }
                 case 4 -> System.exit(0);
